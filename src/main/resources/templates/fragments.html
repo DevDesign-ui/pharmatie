@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head th:fragment="head(titre)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titre} + ' - PharmaSante'">PharmaSante</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <header class="header" th:fragment="header">
+        <div class="header-inner">
+            <a class="brand" th:href="@{/}">
+                <span class="brand-mark">Rx</span>
+                <span class="brand-text">PharmaSante</span>
+            </a>
+            <nav class="nav">
+                <a th:href="@{/}" class="nav-link">Tableau de bord</a>
+                <a th:href="@{/pharmacie/medina}" class="nav-link">Medina</a>
+                <a th:href="@{/pharmacie/liberte}" class="nav-link">Liberte</a>
+                <a th:href="@{/pharmacie/almadies}" class="nav-link">Almadies</a>
+                <a th:href="@{/consolide}" class="nav-link">Stock consolide</a>
+                <a th:href="@{/recherche}" class="nav-link">Recherche</a>
+            </nav>
+        </div>
+    </header>
+
+    <div th:fragment="messages">
+        <div class="flash" th:if="${succes}">
+            <span th:text="${succes}"></span>
+        </div>
+        <div class="flash flash-error" th:if="${erreur}">
+            <span th:text="${erreur}"></span>
+        </div>
+    </div>
+
+    <footer class="footer" th:fragment="footer">
+        <p>PharmaSante - Gestion distribuee des stocks de medicaments - Projet BDD Avancees</p>
+    </footer>
+</body>
+</html>

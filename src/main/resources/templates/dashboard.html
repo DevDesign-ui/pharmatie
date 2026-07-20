@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head th:replace="~{fragments :: head('Tableau de bord')}"></head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+
+<main class="container">
+    <div th:replace="~{fragments :: messages}"></div>
+
+    <section class="hero">
+        <div>
+            <h1>Tableau de bord</h1>
+            <p class="subtitle">Vue d'ensemble du stock de medicaments sur les trois pharmacies.</p>
+        </div>
+        <form th:action="@{/sync}" method="post" class="inline">
+            <button type="submit" class="btn btn-primary">Synchroniser maintenant</button>
+        </form>
+    </section>
+
+    <section class="cards">
+        <a class="card card-medina" th:href="@{/pharmacie/medina}">
+            <div class="card-icon">M</div>
+            <h2>Pharmacie Medina</h2>
+            <p class="card-count"><span th:text="${totalMedina}">0</span> medicaments</p>
+            <span class="card-link">Voir le stock &rarr;</span>
+        </a>
+        <a class="card card-liberte" th:href="@{/pharmacie/liberte}">
+            <div class="card-icon">L</div>
+            <h2>Pharmacie Liberte</h2>
+            <p class="card-count"><span th:text="${totalLiberte}">0</span> medicaments</p>
+            <span class="card-link">Voir le stock &rarr;</span>
+        </a>
+        <a class="card card-almadies" th:href="@{/pharmacie/almadies}">
+            <div class="card-icon">A</div>
+            <h2>Pharmacie Almadies</h2>
+            <p class="card-count"><span th:text="${totalAlmadies}">0</span> medicaments</p>
+            <span class="card-link">Voir le stock &rarr;</span>
+        </a>
+    </section>
+
+    <section class="global">
+        <div class="global-left">
+            <h2>Stock global consolide</h2>
+            <p class="big-number"><span th:text="${totalGlobal}">0</span></p>
+            <p class="subtitle">medicaments au total, toutes pharmacies confondues.</p>
+            <a class="btn btn-secondary" th:href="@{/consolide}">Afficher la liste consolidee</a>
+        </div>
+        <div class="global-right">
+            <a class="btn btn-block btn-primary" th:href="@{/medicament/nouveau}">+ Ajouter un medicament</a>
+            <a class="btn btn-block btn-outline" th:href="@{/recherche}">Rechercher par code</a>
+        </div>
+    </section>
+</main>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

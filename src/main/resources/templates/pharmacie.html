@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head th:replace="~{fragments :: head(${pharmacie.libelle})}"></head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+
+<main class="container">
+    <div th:replace="~{fragments :: messages}"></div>
+
+    <section class="hero">
+        <div>
+            <h1 th:text="${pharmacie.libelle}">Pharmacie</h1>
+            <p class="subtitle">
+                <span th:text="${medicaments != null ? #lists.size(medicaments) : 0}">0</span>
+                medicaments en stock dans cette pharmacie.
+            </p>
+        </div>
+        <a class="btn btn-primary"
+           th:href="@{/medicament/nouveau(pharmacie=${pharmacie.name().toLowerCase()})}">
+            + Ajouter un medicament
+        </a>
+    </section>
+
+    <table class="table" th:if="${medicaments != null and !medicaments.isEmpty()}">
+        <thead>
+        <tr>
+            <th>Code</th>
+            <th>Nom</th>
+            <th>Categorie</th>
+            <th class="num">Prix</th>
+            <th class="num">Quantite</th>
+            <th>Expiration</th>
+            <th>MAJ</th>
+            <th class="num">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="m : ${medicaments}">
+            <td class="mono" th:text="${m.code}">CODE</td>
+            <td th:text="${m.nom}">Nom</td>
+            <td th:text="${m.categorie} ?: '-'">Categorie</td>
+            <td class="num" th:text="${m.prix} + ' FCFA'">0</td>
+            <td class="num" th:text="${m.quantite}">0</td>
+            <td th:text="${m.dateExpiration != null ? #temporals.format(m.dateExpiration, 'dd/MM/yyyy') : '-'}">-</td>
+            <td th:text="${m.updatedAt != null ? #temporals.format(m.updatedAt, 'dd/MM/yyyy HH:mm') : '-'}">-</td>
+            <td class="num actions">
+                <a class="btn btn-small btn-outline"
+                   th:href="@{/medicament/{p}/{id}/modifier(p=${pharmacie.name().toLowerCase()},id=${m.id})}">Modifier</a>
+                <form th:action="@{/medicament/{p}/{id}/supprimer(p=${pharmacie.name().toLowerCase()},id=${m.id})}"
+                      method="post" class="inline"
+                      onsubmit="return confirm('Supprimer ce medicament ?');">
+                    <button type="submit" class="btn btn-small btn-danger">Supprimer</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="empty" th:if="${medicaments == null or medicaments.isEmpty()}">
+        <p>Aucun medicament enregistre dans cette pharmacie pour le moment.</p>
+        <a class="btn btn-primary"
+           th:href="@{/medicament/nouveau(pharmacie=${pharmacie.name().toLowerCase()})}">
+            Ajouter le premier medicament
+        </a>
+    </div>
+</main>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

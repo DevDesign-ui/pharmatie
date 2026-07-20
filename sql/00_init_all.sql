@@ -1,0 +1,19 @@
+-- =====================================================================
+-- PharmaSante - Script d'initialisation complet (MySQL / XAMPP)
+-- =====================================================================
+-- Cree les trois bases de pharmacies et y insere des donnees de demo.
+--
+-- Utilisation depuis la ligne de commande MySQL de XAMPP :
+--   mysql -u root < sql/00_init_all.sql
+--
+-- Ou, depuis phpMyAdmin : onglet "SQL" puis copier-coller le contenu
+-- de chacun des trois scripts (01, 02, 03) l'un apres l'autre.
+--
+-- Remarque : le client mysql ne supporte pas l'instruction \i de
+-- PostgreSQL. Il faut donc executer les trois scripts separes ou
+-- utiliser la commande SOURCE depuis le client mysql :
+--   mysql -u root
+--   SOURCE sql/01_create_medina.sql;
+--   SOURCE sql/02_create_liberte.sql;
+--   SOURCE sql/03_create_almadies.sql;
+-- =====================================================================
